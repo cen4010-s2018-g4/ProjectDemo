@@ -1,0 +1,325 @@
+<?php
+
+include ("connect.php");
+
+$msg = "";
+
+if(isset($_POST["submit"]))
+
+{
+
+if($_POST["User_Name"]=='')
+
+{
+
+$msg = "Enter User Name...";
+
+//return false;
+
+}
+
+else if($_POST["password"]=='')
+
+{
+
+$msg = "Enter Password...";
+
+//return false;
+
+}
+
+else if($_POST["ddlsecurity"]=="0")
+
+{
+
+$msg = "Select Security Question...";
+
+//return false;
+
+}
+
+else if($_POST["answer"]=='')
+
+{
+
+$msg = "Enter Answer...";
+
+//return false;
+
+}
+
+else
+
+{
+
+$User_Name = $_POST["User_Name"];
+
+$password = $_POST["password"];
+
+$ddlsecurity = $_POST["ddlsecurity"];
+
+$answer = $_POST["answer"];
+
+$User_Name = mysqli_real_escape_string($con, $User_Name);
+
+$ddlsecurity = mysqli_real_escape_string($con, $ddlsecurity);
+
+$answer = mysqli_real_escape_string($con, $answer);
+
+$password = mysqli_real_escape_string($con, $password);
+
+//$password = md5($password);
+
+$sql="SELECT * FROM `tbl_user_registration` WHERE User_Name='".$User_Name."'";
+
+$result=mysqli_query($con,$sql);
+
+if(!$result)
+
+{
+
+$msg = "Sorry...This email already exist...";
+
+}
+
+else
+
+{
+
+$query = mysqli_query($con, "INSERT INTO `tbl_user_registration`(`User_Name`, `Password`, `Security_Question_Id`, `Security_Answer`) VALUES ('".$User_Name."','".$password."','".$ddlsecurity."','".$answer."')");
+
+if($query)
+
+{
+
+$msg = "Thank You! you are now registered.";
+
+header("Location: login.php"); /* Redirect browser */
+
+exit();
+
+}
+
+}
+
+}
+
+}
+
+?>
+
+<!DOCTYPE html>
+
+<html lang="en" >
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Register</title>   
+
+<style>
+
+.txtcontrol{
+
+height: 40px;
+
+font-size: 22px;
+
+border: single;
+
+border-color:black;
+
+width: 100%;
+
+margin-bottom:10px;
+
+text-align:center;
+
+}
+
+.mcontainer {
+
+max-width: 600px;
+
+margin: 0 auto;
+
+padding: 80px 0;
+
+height: 400px;
+
+text-align: center;
+
+}
+
+.mcontainer {
+
+width: 100%;
+
+padding-right: 10px;
+
+padding-left: 10px;
+
+margin-right: auto;
+
+margin-left: auto;
+
+}
+
+.sbutton
+
+{
+
+width: 42%;
+
+height: 42px;
+
+background-color: #75d4b6;
+
+border: none;
+
+color: #f9f5ee;
+
+font-size: 17px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="mcontainer">
+
+<h1>Welcome</h1>
+
+<form method="post" action="">
+
+<?php
+
+if($msg!='')
+
+{
+
+echo " <div>
+
+<h4>Message</h4>
+
+$msg</div>";
+
+}
+
+?>
+
+<table align="center" width="60%">
+
+<tr>
+
+<td>
+
+<input type="text" placeholder="User Name" class="txtcontrol" name="User_Name"/>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<input type="password" placeholder="Password" class="txtcontrol" name="password"/>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<select name="ddlsecurity" class="txtcontrol">
+
+<option value="0">Select Security Question</option>
+
+<?php
+
+$sql="SELECT * FROM `tbl_Security_Question`";
+
+$qury=mysqli_query($con,$sql);
+
+if(!$qury){
+
+echo "No Records Found";
+
+}
+
+else
+
+{
+
+while($row=mysqli_fetch_array($qury))
+
+{
+
+echo "<option value=".$row["Security_Question_Id"].">".$row["Security_Question"]."</option>";
+
+}
+
+}
+
+?>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<input type="text" placeholder="Security Answer" class="txtcontrol" name="answer"/>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<input type="submit" name="submit" value="Register" class="sbutton"/>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Already a User? <a href="login.php">Login Here</a>
+
+</td>
+
+</tr>
+
+</table>
+
+  
+
+<br>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
