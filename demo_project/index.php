@@ -2,29 +2,28 @@
   session_start(); 
 
   if (!isset($_SESSION['username'])) {
-  	header('location: login.php');
+  	header('location: welcome.php');
   }
   if (isset($_GET['logout'])) {
   	session_destroy();
   	unset($_SESSION['username']);
-  	header("location: login.php");
+  	header("location: welcome.php");
   }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>Home</title>	
 </head>
 <body>
 
-<div class="header">
+<div>
 	<h2>Home Page</h2>
 </div>
-<div class="content">
+<div>
   	<!-- notification message -->
   	<?php if (isset($_SESSION['success'])) : ?>
-      <div class="error success" >
+      <div>
       	<h3>
           <?php 
           	echo $_SESSION['success']; 
