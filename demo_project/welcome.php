@@ -12,7 +12,7 @@
         <h2>Login</h2>
       </div>
 
-      <form method="post" action="login.php">
+      <form method="post" action="welcome.php">
         <?php include('errors.php'); ?>
         <div>
             <label>Username</label>
@@ -47,7 +47,7 @@
         <h2>Register</h2>
       </div>
 
-      <form method="post" action="register.php">
+      <form method="post" action="welcome.php">
         <?php include('errors.php'); ?>
         <div>
           <label>Username</label>
