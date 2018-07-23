@@ -1,8 +1,8 @@
-<?php include('server.php') ?>
+<?php include('connection.php') ?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Registration system PHP and MySQL</title>
+  <title>Welcome to FAUBook</title>
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="script.js"></script>
 </head>
@@ -25,8 +25,19 @@
         <div>
             <button type="submit" class="btn" name="login_user">Login</button>
         </div>
+		<!-- Hold Off for now
+		<?php
+			if ($count > 2)
+			{
+				echo "<div>
+					      		<label>$question</lable>
+								<input type="text" name="answer">
+						   </div>"
+			}
+		?> -->
         <p>
             Not yet a member? <a id="reg">Sign up</a>
+			Forgot your account? <a id="forgot" href="">Find your account!</a>
         </p>
       </form>
     </div>
